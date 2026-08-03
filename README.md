@@ -217,3 +217,275 @@ Check Python:
 
 ```bash
 python --version
+
+1. Clone the Repository
+
+Clone the project from GitHub:
+
+git clone <repository-url>
+
+Navigate into the project directory:
+
+cd Final-Year-Project
+2. Backend Installation and Setup
+
+Navigate to the backend folder:
+
+cd backend
+Create a Virtual Environment
+
+A virtual environment is used to isolate backend dependencies.
+
+Create the environment:
+
+python -m venv venv
+Activate Virtual Environment
+Windows
+venv\Scripts\activate
+Linux/Mac
+source venv/bin/activate
+
+After activation, the terminal should display the virtual environment name.
+
+Example:
+
+(venv) C:\Final-Year-Project\backend>
+Install Backend Dependencies
+
+Install all required Python packages:
+
+pip install -r requirements.txt
+Backend Configuration
+
+Ensure the required files are available:
+
+backend
+│
+├── app.py
+├── requirements.txt
+│
+├── models
+│   ├── disease_model.pkl
+│   └── vectorizer.pkl
+│
+├── datasets
+│   ├── disease_dataset.csv
+│   └── symptoms_dataset.csv
+│
+└── ...
+
+The trained machine learning model files must be present before running the API.
+
+3. Start Backend Server
+
+From the backend directory, run:
+
+uvicorn app:app --reload
+
+If successful, the terminal will display:
+
+Uvicorn running on http://127.0.0.1:8000
+
+The backend API is now running.
+
+Backend URL:
+
+http://127.0.0.1:8000
+
+FastAPI documentation:
+
+http://127.0.0.1:8000/docs
+
+Keep this terminal running.
+
+4. Frontend Installation and Setup
+
+Open a new terminal window.
+
+Navigate to the frontend folder:
+
+cd frontend
+Install Frontend Dependencies
+
+Run:
+
+npm install
+
+This installs all required React packages.
+
+5. Configure Frontend Environment Variables
+
+Create a .env file inside the frontend folder:
+
+frontend
+│
+├── .env
+├── package.json
+└── src
+
+Add Firebase configuration:
+
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+
+Replace the values with your Firebase project credentials.
+
+6. Start Frontend Application
+
+From the frontend directory, run:
+
+npm run dev
+
+The terminal will display something similar to:
+
+Local: http://localhost:5173/
+
+Open the link in your browser:
+
+http://localhost:5173
+Running the Complete Application
+
+The application requires both servers to run at the same time.
+
+Terminal 1 - Start Backend
+
+Navigate to backend:
+
+cd backend
+
+Activate virtual environment:
+
+Windows:
+
+venv\Scripts\activate
+
+Start FastAPI:
+
+uvicorn app:app --reload
+
+Backend runs at:
+
+http://127.0.0.1:8000
+Terminal 2 - Start Frontend
+
+Navigate to frontend:
+
+cd frontend
+
+Start React application:
+
+npm run dev
+
+Frontend runs at:
+
+http://localhost:5173
+Using the Application
+
+After both servers are running:
+
+Open the frontend URL:
+http://localhost:5173
+Create an account or login.
+Enter symptoms through the chatbot interface.
+
+Example:
+
+I have fever, headache, body pain and vomiting
+The system will:
+Process the symptoms using NLP.
+Convert symptoms into machine-learning features.
+Predict a possible disease.
+Display the confidence score.
+Provide treatment recommendations.
+Training the Machine Learning Model (Optional)
+
+If the model needs to be retrained:
+
+Navigate to:
+
+backend/ml
+
+Run:
+
+python train_model.py
+
+The generated model files will be saved in:
+
+backend/models/
+
+Example:
+
+disease_model.pkl
+vectorizer.pkl
+Stopping the Application
+
+To stop either server:
+
+Press:
+
+CTRL + C
+
+in the respective terminal.
+
+Common Issues and Solutions
+Backend Module Errors
+
+Activate the virtual environment:
+
+venv\Scripts\activate
+
+Reinstall dependencies:
+
+pip install -r requirements.txt
+Frontend Package Errors
+
+Remove existing packages:
+
+Windows:
+
+rmdir /s /q node_modules
+
+Mac/Linux:
+
+rm -rf node_modules
+
+Install again:
+
+npm install
+Port Already in Use
+
+Run backend on another port:
+
+uvicorn app:app --reload --port 8001
+
+Run frontend on another port:
+
+npm run dev -- --port 5174
+Successful Setup
+
+When both services are running correctly:
+
+Frontend
+http://localhost:5173
+
+        |
+        |
+        ↓
+
+Backend API
+http://127.0.0.1:8000
+
+        |
+        |
+        ↓
+
+Machine Learning Disease Prediction System
+
+The AI Disease Detection and Treatment Recommendation System is now ready to use.
+
+
+This is the kind of README installation section you would expect in a professional GitHub repository. It a
