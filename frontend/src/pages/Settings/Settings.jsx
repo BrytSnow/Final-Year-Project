@@ -4,11 +4,10 @@ import "./Settings.css";
 import {
     FaUser,
     FaMoon,
-    FaSignOutAlt,
-    FaInfoCircle,
     FaKey,
     FaTrashAlt,
-    FaUserTimes
+    FaSignOutAlt,
+    FaShieldAlt
 } from "react-icons/fa";
 
 import {
@@ -18,7 +17,10 @@ import {
     deleteAccount
 } from "../../firebase/auth";
 
-import {deleteAllConversations} from "../../services/conversationService";
+import {
+    deleteAllConversations
+} from "../../services/conversationService";
+
 import {useAuth} from "../../context/AuthContext";
 
 
@@ -26,17 +28,44 @@ export default function Settings({theme,toggleTheme}){
 
     const {user,refreshUser}=useAuth();
 
+    const [activePanel,setActivePanel]=useState(null);
+
     const [name,setName]=useState(
-        user?.displayName||""
+        user?.displayName || ""
     );
 
     const [currentPassword,setCurrentPassword]=useState("");
+
     const [newPassword,setNewPassword]=useState("");
 
     const [message,setMessage]=useState("");
-    const [passwordMessage,setPasswordMessage]=useState("");
 
-    const [modal,setModal]=useState(null);
+
+
+    const getInitials=(name)=>{
+
+        if(!name)
+            return "U";
+
+        const words=name.trim().split(" ");
+
+        if(words.length===1)
+            return words[0][0].toUpperCase();
+
+        return (
+            words[0][0]+words[1][0]
+        ).toUpperCase();
+
+    };
+
+
+
+    const closePanel=()=>{
+
+        setActivePanel(null);
+        setMessage("");
+
+    };
 
 
 
@@ -45,8 +74,7 @@ export default function Settings({theme,toggleTheme}){
         try{
 
             await updateUserProfile(user,{
-                displayName:name,
-                photoURL:user.photoURL
+                displayName:name
             });
 
             await refreshUser();
@@ -55,10 +83,11 @@ export default function Settings({theme,toggleTheme}){
                 "Profile updated successfully"
             );
 
-        }catch{
+        }
+        catch{
 
             setMessage(
-                "Profile update failed"
+                "Unable to update profile"
             );
 
         }
@@ -69,10 +98,10 @@ export default function Settings({theme,toggleTheme}){
 
     const updatePassword=async()=>{
 
-        if(!currentPassword||!newPassword){
+        if(!currentPassword || !newPassword){
 
-            setPasswordMessage(
-                "Fill all fields"
+            setMessage(
+                "Fill all password fields"
             );
 
             return;
@@ -88,46 +117,23 @@ export default function Settings({theme,toggleTheme}){
                 newPassword
             );
 
-            setPasswordMessage(
+
+            setMessage(
                 "Password changed successfully"
             );
+
 
             setCurrentPassword("");
             setNewPassword("");
 
-        }catch(error){
+        }
+        catch(error){
 
-            setPasswordMessage(
+            setMessage(
                 error.message
             );
 
         }
-
-    };
-
-
-
-    const clearHistory=async()=>{
-
-        try{
-
-            await deleteAllConversations(
-                user.uid
-            );
-
-            setMessage(
-                "Chat history cleared"
-            );
-
-        }catch{
-
-            setMessage(
-                "Unable to clear history"
-            );
-
-        }
-
-        setModal(null);
 
     };
 
@@ -141,19 +147,22 @@ export default function Settings({theme,toggleTheme}){
                 user.uid
             );
 
-            await deleteAccount(user);
+
+            await deleteAccount(
+                user
+            );
+
 
             window.location.href="/";
 
-        }catch(error){
+        }
+        catch(error){
 
             setMessage(
                 error.message
             );
 
         }
-
-        setModal(null);
 
     };
 
@@ -169,36 +178,66 @@ export default function Settings({theme,toggleTheme}){
 
 
 
-    return(
+    const renderPanel=()=>{
 
-        <div className="settings-page">
-
-            <h2>Settings</h2>
-
-
-            <section className="settings-card">
-
-                <div className="settings-title">
-
-                    <FaUser/>
-
-                    <h3>Profile</h3>
-
-                </div>
+        if(!activePanel)
+            return null;
 
 
-                <div className="profile-settings">
+        return(
 
-                    <img
-                        src={
-                            user?.photoURL||
-                            "/default-avatar.png"
-                        }
-                        alt="profile"
-                    />
+            <div
+                className="settings-overlay"
+                onClick={closePanel}
+            >
+
+                <div
+                    className="settings-modal"
+                    onClick={
+                        e=>e.stopPropagation()
+                    }
+                >
+
+                    <button
+                        className="close-modal"
+                        onClick={closePanel}
+                    >
+                        ×
+                    </button>
 
 
-                    <div>
+
+                    {
+                        activePanel==="account" &&
+
+                        <>
+
+                        <div className="modal-header">
+
+                            <div className="modal-icon account">
+                                {
+                                    getInitials(
+                                        user?.displayName
+                                    )
+                                }
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Account information
+                                </h3>
+
+                                <p className="modal-subtitle">
+                                    Manage your name and view your email
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <label className="field-label">
+                            Username
+                        </label>
 
                         <input
                             value={name}
@@ -209,261 +248,419 @@ export default function Settings({theme,toggleTheme}){
                         />
 
 
-                        <p>
+                        <label className="field-label">
+                            Email address
+                        </label>
+
+                        <div className="field-static">
                             {user?.email}
-                        </p>
+                        </div>
 
 
-                        <button onClick={updateProfile}>
-                            Save Changes
+                        <button
+                            onClick={updateProfile}
+                        >
+                            Save changes
                         </button>
 
+                        </>
 
-                        {
-                            message&&
-                            <small>
-                                {message}
-                            </small>
-                        }
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-
-            <section className="settings-card">
-
-                <div className="settings-title">
-
-                    <FaMoon/>
-
-                    <h3>Appearance</h3>
-
-                </div>
-
-
-                <div className="setting-row">
-
-                    <span>
-                        Dark Mode
-                    </span>
-
-
-                    <button onClick={toggleTheme}>
-                        {
-                            theme==="dark"
-                            ?"ON"
-                            :"OFF"
-                        }
-                    </button>
-
-                </div>
-
-            </section>
-
-
-
-            <section className="settings-card">
-
-                <div className="settings-title">
-
-                    <FaKey/>
-
-                    <h3>Security</h3>
-
-                </div>
-
-
-                <input
-                    type="password"
-                    placeholder="Current password"
-                    value={currentPassword}
-                    onChange={
-                        e=>setCurrentPassword(
-                            e.target.value
-                        )
                     }
-                />
-
-
-                <input
-                    type="password"
-                    placeholder="New password"
-                    value={newPassword}
-                    onChange={
-                        e=>setNewPassword(
-                            e.target.value
-                        )
-                    }
-                />
-
-
-                <button onClick={updatePassword}>
-                    Change Password
-                </button>
-
-
-                {
-                    passwordMessage&&
-                    <small>
-                        {passwordMessage}
-                    </small>
-                }
-
-            </section>
 
 
 
-            <section className="settings-card">
+                    {
+                        activePanel==="security" &&
 
-                <div className="settings-title">
+                        <>
 
-                    <FaTrashAlt/>
+                        <div className="modal-header">
 
-                    <h3>Chat Management</h3>
+                            <div className="modal-icon security">
+                                <FaKey/>
+                            </div>
 
-                </div>
+                            <div>
+                                <h3>
+                                    Change password
+                                </h3>
 
-
-                <p>
-                    Delete all saved conversations.
-                </p>
-
-
-                <button
-                    className="danger-btn"
-                    onClick={()=>
-                        setModal("history")
-                    }
-                >
-                    Clear Chat History
-                </button>
-
-            </section>
-
-
-
-            <section className="settings-card">
-
-                <div className="settings-title">
-
-                    <FaSignOutAlt/>
-
-                    <h3>Account</h3>
-
-                </div>
-
-
-                <button onClick={logout}>
-                    Logout
-                </button>
-
-
-                <button
-                    className="danger-btn"
-                    onClick={()=>
-                        setModal("account")
-                    }
-                >
-                    <FaUserTimes/>
-                    Delete Account
-                </button>
-
-            </section>
-
-
-
-            <section className="settings-card">
-
-                <div className="settings-title">
-
-                    <FaInfoCircle/>
-
-                    <h3>About</h3>
-
-                </div>
-
-
-                <p>
-                    AI Disease Detection and Treatment Recommendation System
-                </p>
-
-
-                <small>
-                    Version 1.0
-                </small>
-
-            </section>
-
-
-
-            {
-                modal&&
-
-                <div
-                    className="delete-modal-overlay"
-                    onClick={()=>
-                        setModal(null)
-                    }
-                >
-
-                    <div
-                        className="delete-modal"
-                        onClick={
-                            e=>e.stopPropagation()
-                        }
-                    >
-
-                        <h3>
-                            {
-                                modal==="history"
-                                ?"Clear Chat History?"
-                                :"Delete Account?"
-                            }
-                        </h3>
-
-
-                        <p>
-                            {
-                                modal==="history"
-                                ?"All conversations will be permanently removed."
-                                :"Your account and data will be permanently deleted."
-                            }
-                        </p>
-
-
-                        <div className="delete-modal-actions">
-
-                            <button
-                                onClick={()=>
-                                    setModal(null)
-                                }
-                            >
-                                Cancel
-                            </button>
-
-
-                            <button
-                                className="danger-btn"
-                                onClick={
-                                    modal==="history"
-                                    ?clearHistory
-                                    :removeAccount
-                                }
-                            >
-                                Confirm
-                            </button>
+                                <p className="modal-subtitle">
+                                    Update the password for your account
+                                </p>
+                            </div>
 
                         </div>
 
+
+                        <label className="field-label">
+                            Current password
+                        </label>
+
+                        <input
+                            type="password"
+                            placeholder="Current password"
+                            value={currentPassword}
+                            onChange={
+                                e=>setCurrentPassword(
+                                    e.target.value
+                                )
+                            }
+                        />
+
+
+                        <label className="field-label">
+                            New password
+                        </label>
+
+                        <input
+                            type="password"
+                            placeholder="New password"
+                            value={newPassword}
+                            onChange={
+                                e=>setNewPassword(
+                                    e.target.value
+                                )
+                            }
+                        />
+
+
+                        <button
+                            onClick={updatePassword}
+                        >
+                            Update password
+                        </button>
+
+                        </>
+
+                    }
+
+
+
+                    {
+                        activePanel==="appearance" &&
+
+                        <>
+
+                        <div className="modal-header">
+
+                            <div className="modal-icon appearance">
+                                <FaMoon/>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Appearance
+                                </h3>
+
+                                <p className="modal-subtitle">
+                                    Customize how the app looks
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div className="theme-row">
+
+                            <span>
+                                Dark mode
+                            </span>
+
+
+                            <button
+                                onClick={toggleTheme}
+                            >
+
+                            {
+                                theme==="dark"
+                                ?"OFF"
+                                :"ON"
+                            }
+
+                            </button>
+
+
+                        </div>
+
+                        </>
+
+                    }
+
+
+
+                    {
+                        activePanel==="privacy" &&
+
+                        <>
+
+                        <div className="modal-header">
+
+                            <div className="modal-icon privacy">
+                                <FaShieldAlt/>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Privacy policy
+                                </h3>
+
+                                <p className="modal-subtitle">
+                                    How we handle your data
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div className="privacy-text">
+
+                            <p>
+                                This AI Disease Detection and Treatment Recommendation System
+                                collects information provided during health assessments.
+                            </p>
+
+
+                            <p>
+                                The information is used to provide AI-generated health
+                                recommendations and improve user experience.
+                            </p>
+
+
+                            <p>
+                                This system does not replace professional medical advice.
+                            </p>
+
+
+                            <p>
+                                Users may request deletion of their account and stored data.
+                            </p>
+
+
+                        </div>
+
+                        </>
+
+                    }
+
+
+
+                    {
+                        activePanel==="delete" &&
+
+                        <>
+
+                        <div className="modal-header">
+
+                            <div className="modal-icon danger">
+                                <FaTrashAlt/>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Delete account
+                                </h3>
+
+                                <p className="modal-subtitle">
+                                    This can't be undone
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <p>
+                            This permanently deletes your account and conversations.
+                        </p>
+
+
+                        <button
+                            className="danger-btn"
+                            onClick={removeAccount}
+                        >
+                            Delete permanently
+                        </button>
+
+
+                        </>
+
+                    }
+
+
+
+                    {
+                        message &&
+
+                        <small className="message">
+                            {message}
+                        </small>
+
+                    }
+
+
+                </div>
+
+            </div>
+
+        );
+
+    };
+
+
+
+    return(
+
+        <div className="settings-page">
+
+            <h2>
+                Settings
+            </h2>
+
+
+
+            <div className="settings-grid">
+
+
+                <div
+                    className="settings-tile"
+                    onClick={()=>
+                        setActivePanel("account")
+                    }
+                >
+
+                    <FaUser/>
+
+                    <div>
+                        <h3>
+                            Account
+                        </h3>
+
+                        <p>
+                            Manage profile information
+                        </p>
                     </div>
 
                 </div>
 
-            }
+
+
+                <div
+                    className="settings-tile"
+                    onClick={()=>
+                        setActivePanel("security")
+                    }
+                >
+
+                    <FaKey/>
+
+                    <div>
+                        <h3>
+                            Security
+                        </h3>
+
+                        <p>
+                            Change password
+                        </p>
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    className="settings-tile"
+                    onClick={()=>
+                        setActivePanel("appearance")
+                    }
+                >
+
+                    <FaMoon/>
+
+                    <div>
+                        <h3>
+                            Appearance
+                        </h3>
+
+                        <p>
+                            Theme settings
+                        </p>
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    className="settings-tile"
+                    onClick={()=>
+                        setActivePanel("privacy")
+                    }
+                >
+
+                    <FaShieldAlt/>
+
+                    <div>
+                        <h3>
+                            Privacy Policy
+                        </h3>
+
+                        <p>
+                            View data policies
+                        </p>
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    className="settings-tile danger"
+                    onClick={()=>
+                        setActivePanel("delete")
+                    }
+                >
+
+                    <FaTrashAlt/>
+
+                    <div>
+                        <h3>
+                            Delete Account
+                        </h3>
+
+                        <p>
+                            Permanently remove account
+                        </p>
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    className="settings-tile"
+                    onClick={logout}
+                >
+
+                    <FaSignOutAlt/>
+
+                    <div>
+                        <h3>
+                            Logout
+                        </h3>
+
+                        <p>
+                            Sign out of account
+                        </p>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            {renderPanel()}
+
 
         </div>
 

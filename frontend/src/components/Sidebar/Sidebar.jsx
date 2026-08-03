@@ -4,30 +4,32 @@ import {
     FaHistory,
     FaCog,
     FaChevronDown,
+    FaEllipsisV,
     FaTrashAlt
 } from "react-icons/fa";
 
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import {useState} from "react";
+import {NavLink, useNavigate} from "react-router-dom";
 
 import "./Sidebar.css";
 
-import { useConversations } from "../../hooks/useConversations";
-import { useAuth } from "../../context/AuthContext";
-import { useConversation } from "../../context/ConversationContext";
+import {useConversations} from "../../hooks/useConversations";
+import {useAuth} from "../../context/AuthContext";
+import {useConversation} from "../../context/ConversationContext";
 
-import { getMessages } from "../../services/messageService";
+import {getMessages} from "../../services/messageService";
 
 
-export default function Sidebar({ open }) {
+export default function Sidebar({open}){
 
-    const { user } = useAuth();
+    const {user}=useAuth();
 
     const {
         conversations,
         removeConversation,
         loadConversations
-    } = useConversations();
+    }=useConversations();
+
 
     const {
         currentConversation,
@@ -35,117 +37,89 @@ export default function Sidebar({ open }) {
         setChatMessages,
         setPatientContext,
         startNewChat
-    } = useConversation();
-
-    const navigate = useNavigate();
-
-    const [chatsOpen,setChatsOpen] = useState(false);
-    const [chatToDelete,setChatToDelete] = useState(null);
+    }=useConversation();
 
 
-    const getInitials = (name)=>{
+    const navigate=useNavigate();
+
+
+    const [chatsOpen,setChatsOpen]=useState(false);
+    const [activeMenu,setActiveMenu]=useState(null);
+    const [chatToDelete,setChatToDelete]=useState(null);
+
+
+
+    const getInitials=(name)=>{
 
         if(!name)
             return "U";
 
-        const words = name.trim().split(" ");
+        const words=name.trim().split(" ");
 
-        if(words.length === 1)
+        if(words.length===1)
             return words[0][0].toUpperCase();
 
         return (
-            words[0][0] +
-            words[1][0]
+            words[0][0]+words[1][0]
         ).toUpperCase();
 
     };
 
 
-    const openConversation = async(chat)=>{
 
-    if(!user)
-        return;
+    const openConversation=async(chat)=>{
 
-
-    try{
+        if(!user)
+            return;
 
 
-    const messages = await getMessages(
-        user.uid,
-        chat.id
-    );
+        try{
+
+            const messages=await getMessages(
+                user.uid,
+                chat.id
+            );
 
 
-    setCurrentConversation(
-        chat.id
-    );
+            setCurrentConversation(chat.id);
+
+            setChatMessages(messages);
 
 
-    setChatMessages(
-        messages
-    );
+            setPatientContext(
+                chat.patientContext || {
+                    duration:"",
+                    severity:"",
+                    medicine:"",
+                    medical_history:"",
+                    trigger:"",
+                    other_notes:""
+                }
+            );
 
 
+            navigate("/chat");
 
-    setPatientContext(
 
-        chat.patientContext || {
+        }
+        catch(error){
 
-            duration:"",
-            severity:"",
-            medicine:"",
-            medical_history:"",
-            trigger:"",
-            other_notes:""
+            console.error(
+                "Unable to load chat:",
+                error
+            );
 
         }
 
-    );
+    };
 
 
 
-        // Restore patient memory
+    const deleteChat=async()=>{
 
-        setPatientContext(
+        if(!chatToDelete)
+            return;
 
-            chat.patientContext || {
-
-                duration:"",
-                severity:"",
-                medicine:"",
-                medical_history:"",
-                trigger:"",
-                other_notes:""
-
-            }
-
-        );
-
-
-
-        navigate("/chat");
-
-
-    }
-    catch(error){
-
-
-        console.error(
-
-            "Unable to load chat:",
-
-            error
-
-        );
-
-
-    }
-
-
-};
-
-
-    const deleteChat = async()=>{
 
         try{
 
@@ -153,17 +127,21 @@ export default function Sidebar({ open }) {
                 chatToDelete.id
             );
 
+
             await loadConversations();
 
+
             if(
-                currentConversation === chatToDelete.id
+                currentConversation===chatToDelete.id
             ){
 
                 startNewChat();
 
             }
 
+
             setChatToDelete(null);
+
 
         }
         catch(error){
@@ -178,286 +156,454 @@ export default function Sidebar({ open }) {
     };
 
 
-    return (
+
+    return(
 
         <>
 
-            <aside
-                className={
-                    open
-                    ? "sidebar"
-                    : "sidebar closed"
-                }
-            >
 
-                <div className="sidebar__top">
+        <aside
+            className={
+                open
+                ?"sidebar"
+                :"sidebar closed"
+            }
+            onClick={()=>setActiveMenu(null)}
+        >
 
-                    <button
-                        className="sidebar__newChat"
-                        onClick={()=>{
 
-                            startNewChat();
-                            navigate("/chat");
+            <div className="sidebar__top">
 
-                        }}
+
+                <button
+                    className="sidebar__newChat"
+                    onClick={(e)=>{
+
+                        e.stopPropagation();
+
+                        startNewChat();
+
+                        navigate("/chat");
+
+                    }}
+                >
+
+                    <FaPlus/>
+
+                    {
+                        open &&
+                        <span>
+                            New Chat
+                        </span>
+                    }
+
+                </button>
+
+
+
+                <nav className="sidebar__menu">
+
+
+                    <NavLink
+                        to="/chat"
+                        className="sidebar__link"
                     >
 
-                        <FaPlus />
+                        <FaComments className="sidebar-icon"/>
+
 
                         {
                             open &&
                             <span>
-                                New Chat
+                                Chat
                             </span>
                         }
 
-                    </button>
+
+                    </NavLink>
 
 
-                    <nav className="sidebar__menu">
 
-                        <NavLink
-                            to="/chat"
-                            className="sidebar__link"
+
+
+                    <div className="chat-history">
+
+
+                        <button
+                            className="sidebar__link history-button"
+                            onClick={(e)=>{
+
+                                e.stopPropagation();
+
+                                if(open)
+                                    setChatsOpen(!chatsOpen);
+
+                            }}
                         >
 
-                            <FaComments className="sidebar-icon"/>
+                            <FaHistory className="sidebar-icon"/>
+
 
                             {
                                 open &&
                                 <span>
-                                    Chat
+                                    History
                                 </span>
                             }
 
-                        </NavLink>
-
-
-                        <div className="chat-history">
-
-                            <button
-                                className="sidebar__link history-button"
-                                onClick={()=>{
-
-                                    if(open)
-                                        setChatsOpen(!chatsOpen);
-
-                                }}
-                            >
-
-                                <FaHistory className="sidebar-icon"/>
-
-                                {
-                                    open &&
-                                    <span>
-                                        History
-                                    </span>
-                                }
-
-                                {
-                                    open &&
-                                    <FaChevronDown
-                                        className={
-                                            chatsOpen
-                                            ? "rotate"
-                                            : ""
-                                        }
-                                    />
-                                }
-
-                            </button>
 
 
                             {
-                                chatsOpen &&
                                 open &&
-                                (
+                                <FaChevronDown
+                                    className={
+                                        chatsOpen
+                                        ?"rotate"
+                                        :""
+                                    }
+                                />
+                            }
 
-                                <div className="conversation-list">
 
-                                    {
-                                        conversations.length === 0 ?
+                        </button>
 
-                                        <p className="no-chats">
-                                            No chats yet
-                                        </p>
 
-                                        :
 
-                                        conversations.map(chat=>(
 
-                                            <div
-                                                key={chat.id}
-                                                className={
-                                                    currentConversation === chat.id
-                                                    ? "conversation-item active"
-                                                    : "conversation-item"
-                                                }
+
+                        {
+                            chatsOpen &&
+                            open &&
+
+                            <div className="conversation-list">
+
+
+                            {
+                                conversations.length===0 ?
+
+                                <p className="no-chats">
+                                    No chats yet
+                                </p>
+
+
+                                :
+
+
+                                conversations.map(chat=>(
+
+
+                                    <div
+                                        key={chat.id}
+                                        className={
+                                            currentConversation===chat.id
+                                            ?
+                                            "conversation-item active"
+                                            :
+                                            "conversation-item"
+                                        }
+                                    >
+
+
+
+                                        <div
+                                            className="conversation-title"
+                                            onClick={()=>
+                                                openConversation(chat)
+                                            }
+                                        >
+
+                                            <FaComments/>
+
+
+                                            <span>
+                                                {chat.title}
+                                            </span>
+
+
+                                        </div>
+
+
+
+
+
+                                        <div
+                                            className="conversation-actions"
+                                            onClick={(e)=>
+                                                e.stopPropagation()
+                                            }
+                                        >
+
+
+                                            <button
+                                                className="menu-button"
+                                                onClick={()=>{
+
+                                                    setActiveMenu(
+
+                                                        activeMenu===chat.id
+                                                        ?
+                                                        null
+                                                        :
+                                                        chat.id
+
+                                                    );
+
+                                                }}
                                             >
 
+                                                <FaEllipsisV/>
+
+                                            </button>
+
+
+
+
+
+                                            {
+                                                activeMenu===chat.id &&
+
+
                                                 <div
-                                                    className="conversation-title"
-                                                    onClick={()=>
-                                                        openConversation(chat)
-                                                    }
+                                                    className="conversation-menu"
                                                 >
 
-                                                    <FaComments />
 
-                                                    <span>
-                                                        {chat.title}
-                                                    </span>
+                                                    <button
+                                                        className="delete-option"
+                                                        onClick={()=>{
+
+                                                            setChatToDelete(chat);
+
+                                                            setActiveMenu(null);
+
+                                                        }}
+                                                    >
+
+                                                        <FaTrashAlt/>
+
+                                                        Delete
+
+                                                    </button>
+
 
                                                 </div>
 
 
-                                                <button
-                                                    className="delete-chat"
-                                                    onClick={()=>setChatToDelete(chat)}
-                                                >
+                                            }
 
-                                                    <FaTrashAlt />
 
-                                                </button>
 
-                                            </div>
+                                        </div>
 
-                                        ))
 
-                                    }
 
-                                </div>
+                                    </div>
 
-                                )
+
+                                ))
 
                             }
 
-                        </div>
-
-
-                        <NavLink
-                            to="/settings"
-                            className="sidebar__link"
-                        >
-
-                            <FaCog className="sidebar-icon"/>
-
-                            {
-                                open &&
-                                <span>
-                                    Settings
-                                </span>
-                            }
-
-                        </NavLink>
-
-                    </nav>
-
-                </div>
-
-
-                <div className="sidebar__bottom">
-
-                    <div className="sidebar-profile">
-
-                        {
-                            user?.photoURL ?
-
-                            <img
-                                src={user.photoURL}
-                                alt="profile"
-                            />
-
-                            :
-
-                            <div className="profile-initials">
-
-                                {
-                                    getInitials(
-                                        user?.displayName
-                                    )
-                                }
 
                             </div>
+
+
                         }
+
+
+
+                    </div>
+
+
+
+
+
+
+                    <NavLink
+                        to="/settings"
+                        className="sidebar__link"
+                    >
+
+
+                        <FaCog className="sidebar-icon"/>
 
 
                         {
                             open &&
-                            <div className="sidebar-profile-info">
-
-                                <span>
-                                    {
-                                        user?.displayName ||
-                                        "User"
-                                    }
-                                </span>
-
-                                <small>
-                                    {
-                                        user?.email
-                                    }
-                                </small>
-
-                            </div>
+                            <span>
+                                Settings
+                            </span>
                         }
 
-                    </div>
 
-                </div>
-
-            </aside>
+                    </NavLink>
 
 
-            {
-                chatToDelete &&
 
-                <div
-                    className="delete-modal-overlay"
-                    onClick={()=>
-                        setChatToDelete(null)
-                    }
-                >
+                </nav>
 
-                    <div
-                        className="delete-modal"
-                        onClick={(e)=>
-                            e.stopPropagation()
-                        }
-                    >
 
-                        <h3>
-                            Delete Conversation?
-                        </h3>
 
-                        <p>
-                            This conversation will be permanently deleted.
-                        </p>
+            </div>
 
-                        <div className="delete-modal-actions">
 
-                            <button
-                                className="cancel-delete"
-                                onClick={()=>
-                                    setChatToDelete(null)
-                                }
-                            >
-                                Cancel
-                            </button>
 
-                            <button
-                                className="confirm-delete"
-                                onClick={deleteChat}
-                            >
-                                Delete
-                            </button>
+
+
+
+            <div className="sidebar__bottom">
+
+
+                <div className="sidebar-profile">
+
+
+                    {
+                        user?.photoURL ?
+
+
+                        <img
+                            src={user.photoURL}
+                            alt="profile"
+                        />
+
+
+                        :
+
+
+                        <div className="profile-initials">
+
+                            {
+                                getInitials(
+                                    user?.displayName
+                                )
+                            }
 
                         </div>
 
-                    </div>
+
+                    }
+
+
+
+
+                    {
+                        open &&
+
+
+                        <div className="sidebar-profile-info">
+
+
+                            <span>
+
+                                {
+                                    user?.displayName ||
+                                    "User"
+                                }
+
+                            </span>
+
+
+                            <small>
+
+                                {
+                                    user?.email
+                                }
+
+                            </small>
+
+
+                        </div>
+
+                    }
+
+
 
                 </div>
-            }
+
+
+            </div>
+
+
+
+        </aside>
+
+
+
+
+
+
+        {
+            chatToDelete &&
+
+
+            <div
+                className="delete-modal-overlay"
+                onClick={()=>
+                    setChatToDelete(null)
+                }
+            >
+
+
+                <div
+                    className="delete-modal"
+                    onClick={(e)=>
+                        e.stopPropagation()
+                    }
+                >
+
+
+                    <h3>
+                        Delete Conversation?
+                    </h3>
+
+
+                    <p>
+                        This conversation will be permanently deleted.
+                    </p>
+
+
+
+
+                    <div className="delete-modal-actions">
+
+
+                        <button
+                            className="cancel-delete"
+                            onClick={()=>
+                                setChatToDelete(null)
+                            }
+                        >
+
+                            Cancel
+
+                        </button>
+
+
+
+
+                        <button
+                            className="confirm-delete"
+                            onClick={deleteChat}
+                        >
+
+                            Delete
+
+                        </button>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        }
+
+
 
         </>
 
