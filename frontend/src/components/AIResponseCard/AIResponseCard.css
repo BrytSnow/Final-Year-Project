@@ -1,0 +1,157 @@
+.ai-response{
+    width:100%;
+    color:var(--text);
+    animation:slideIn .25s ease;
+}
+
+
+.ai-response.consultation{
+    padding:14px;
+    border-radius:14px;
+    background:rgba(45,140,255,.06);
+    border:1px solid rgba(45,140,255,.15);
+}
+
+
+.ai-response__header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:700;
+    color:var(--primary);
+    margin-bottom:12px;
+    font-size:1rem;
+}
+
+
+.ai-response.consultation .ai-response__header{
+    color:#2D8CFF;
+}
+
+
+.ai-response__content{
+    line-height:1.6;
+    font-size:.95rem;
+    text-align:left;
+}
+
+
+.ai-response__content p{
+    margin:10px 0;
+}
+
+
+.ai-response__content ul{
+    margin:10px 0;
+    padding-left:22px;
+}
+
+
+.ai-response__content li{
+    margin-bottom:7px;
+}
+
+
+.ai-response__content strong{
+    font-weight:700;
+}
+
+
+/* Follow-up question section */
+
+.follow-up-questions{
+
+    margin-top:15px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:rgba(45,140,255,.08);
+
+    border-left:4px solid #2D8CFF;
+
+}
+
+
+.follow-up-questions h4{
+
+    margin:0 0 10px;
+
+    font-size:.95rem;
+
+    color:var(--primary);
+
+}
+
+
+.follow-up-questions ul{
+
+    margin:0;
+
+    padding-left:20px;
+
+}
+
+
+.follow-up-questions li{
+
+    margin-bottom:8px;
+
+    line-height:1.5;
+
+}
+
+
+
+/* Consultation card */
+
+.ai-response.consultation .ai-response__content{
+
+    background:var(--surface);
+
+    padding:12px 15px;
+
+    border-radius:12px;
+
+}
+
+
+
+/* Medical disclaimer */
+
+.ai-response__disclaimer{
+
+    margin-top:15px;
+
+    padding-top:12px;
+
+    border-top:1px solid var(--border);
+
+    font-size:.8rem;
+
+    color:var(--gray-500);
+
+}
+
+
+
+@keyframes slideIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(8px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}

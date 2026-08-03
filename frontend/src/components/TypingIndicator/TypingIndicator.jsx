@@ -1,0 +1,17 @@
+import "./TypingIndicator.css";
+
+export default function TypingIndicator() {
+    return (
+        <div className="typing">
+
+            <div className="typing__bubble">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </div>
+    );
+}

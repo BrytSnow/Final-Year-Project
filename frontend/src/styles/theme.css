@@ -1,0 +1,54 @@
+:root {
+
+
+    --primary: #2D8CFF;
+
+    --background: #f5f7fb;
+
+    --surface: #ffffff;
+
+    --text: #1f2937;
+
+    --border: #e5e7eb;
+
+
+    --user-message: #2563eb;
+
+    --ai-message: #ffffff;
+
+
+    --card-hover: #f9fafb;
+
+}
+
+
+
+
+[data-theme="dark"] {
+
+
+    --primary: #60a5fa;
+
+
+    --background: #0f172a;
+
+
+    --surface: #1e293b;
+
+
+    --text: #f8fafc;
+
+
+    --border: #334155;
+
+
+    --user-message: #2563eb;
+
+
+    --ai-message: #1e293b;
+
+
+    --card-hover: #334155;
+
+
+}

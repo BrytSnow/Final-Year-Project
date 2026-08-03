@@ -1,0 +1,620 @@
+{
+"Asthma Attack": {
+  "orthodox": [
+    "Short-acting bronchodilator inhaler (such as prescribed rescue inhaler)",
+    "Emergency medical care for severe attacks"
+  ],
+  "herbal": [
+    "Ginger",
+    "Honey"
+  ],
+  "prevention": [
+    "Avoid asthma triggers",
+    "Follow prescribed asthma management plan",
+    "Keep prescribed medication available"
+  ]
+  },
+  "Malaria": {
+    "orthodox": [
+      "Artemisinin-based Combination Therapies (ACTs)",
+      "Paracetamol for fever and pain relief"
+    ],
+    "herbal": [
+      "Neem leaves",
+      "Bitter leaf",
+      "Ginger"
+    ],
+    "prevention": [
+      "Sleep under insecticide-treated mosquito nets",
+      "Use mosquito repellents",
+      "Remove stagnant water around homes"
+    ]
+  },
+
+  "Typhoid Fever": {
+    "orthodox": [
+      "Antibiotics prescribed by a healthcare professional",
+      "Oral rehydration therapy"
+    ],
+    "herbal": [
+      "Ginger tea",
+      "Garlic"
+    ],
+    "prevention": [
+      "Drink clean water",
+      "Wash hands before eating",
+      "Eat properly cooked food"
+    ]
+  },
+
+  "Cholera": {
+    "orthodox": [
+      "Oral Rehydration Solution (ORS)",
+      "Antibiotics when prescribed"
+    ],
+    "herbal": [
+      "Ginger",
+      "Clove"
+    ],
+    "prevention": [
+      "Drink safe water",
+      "Practice proper sanitation",
+      "Wash hands regularly"
+    ]
+  },
+
+  "Tuberculosis": {
+    "orthodox": [
+      "Combination anti-tuberculosis therapy",
+      "Long-term TB medication under medical supervision"
+    ],
+    "herbal": [
+      "Garlic",
+      "Ginger"
+    ],
+    "prevention": [
+      "Early diagnosis",
+      "Avoid close contact with infected individuals",
+      "Ensure good ventilation"
+    ]
+  },
+
+  "COVID-19": {
+    "orthodox": [
+      "Supportive treatment",
+      "Fever and pain medication when required"
+    ],
+    "herbal": [
+      "Ginger",
+      "Honey"
+    ],
+    "prevention": [
+      "Maintain hygiene",
+      "Avoid exposure when infected",
+      "Follow public health guidance"
+    ]
+  },
+
+  "Influenza": {
+    "orthodox": [
+      "Antiviral medication when prescribed",
+      "Paracetamol for fever"
+    ],
+    "herbal": [
+      "Honey",
+      "Ginger"
+    ],
+    "prevention": [
+      "Vaccination",
+      "Wash hands frequently"
+    ]
+  },
+
+  "Common Cold": {
+    "orthodox": [
+      "Paracetamol",
+      "Cold symptom medication"
+    ],
+    "herbal": [
+      "Honey",
+      "Ginger tea"
+    ],
+    "prevention": [
+      "Avoid close contact with infected people",
+      "Practice good hygiene"
+    ]
+  },
+
+  "Pneumonia": {
+    "orthodox": [
+      "Antibiotics when bacterial infection is confirmed",
+      "Oxygen therapy for severe cases"
+    ],
+    "herbal": [
+      "Ginger",
+      "Honey"
+    ],
+    "prevention": [
+      "Vaccination",
+      "Avoid smoking",
+      "Seek early medical attention"
+    ]
+  },
+
+"Hepatitis A": {
+  "orthodox": [
+    "Supportive treatment",
+    "Medication for symptoms as prescribed"
+  ],
+  "herbal": [
+    "Milk thistle",
+    "Ginger"
+  ],
+  "prevention": [
+    "Practice good hygiene",
+    "Drink clean water",
+    "Get vaccinated where available"
+  ]
+},
+
+"Hepatitis B": {
+  "orthodox": [
+    "Antiviral medications under medical supervision",
+    "Regular liver monitoring"
+  ],
+  "herbal": [
+    "Milk thistle",
+    "Green tea"
+  ],
+  "prevention": [
+    "Vaccination",
+    "Avoid sharing needles",
+    "Practice safe medical procedures"
+  ]
+},
+
+"HIV/AIDS": {
+  "orthodox": [
+    "Antiretroviral Therapy (ART)",
+    "Treatment of opportunistic infections"
+  ],
+  "herbal": [
+    "Nutritious diet support",
+    "Ginger"
+  ],
+  "prevention": [
+    "Safe sexual practices",
+    "Avoid sharing needles",
+    "Regular testing"
+  ]
+},
+
+"Chickenpox": {
+  "orthodox": [
+    "Antiviral medication when prescribed",
+    "Paracetamol for fever relief"
+  ],
+  "herbal": [
+    "Oatmeal baths",
+    "Aloe vera"
+  ],
+  "prevention": [
+    "Vaccination",
+    "Avoid contact with infected individuals"
+  ]
+},
+
+"Measles": {
+  "orthodox": [
+    "Vitamin A supplementation",
+    "Supportive treatment"
+  ],
+  "herbal": [
+    "Ginger",
+    "Honey"
+  ],
+  "prevention": [
+    "MMR vaccination",
+    "Avoid exposure during outbreaks"
+  ]
+},
+
+"Mumps": {
+  "orthodox": [
+    "Pain relievers",
+    "Supportive care"
+  ],
+  "herbal": [
+    "Ginger tea",
+    "Warm compress"
+  ],
+  "prevention": [
+    "MMR vaccination",
+    "Avoid close contact with infected people"
+  ]
+},
+
+"Meningitis": {
+  "orthodox": [
+    "Antibiotics or antiviral treatment depending on cause",
+    "Hospital care for severe cases"
+  ],
+  "herbal": [
+    "Ginger",
+    "Hydration support"
+  ],
+  "prevention": [
+    "Vaccination",
+    "Early medical attention"
+  ]
+},
+
+"Food Poisoning": {
+  "orthodox": [
+    "Oral rehydration solution",
+    "Medication for symptoms when required"
+  ],
+  "herbal": [
+    "Ginger",
+    "Peppermint tea"
+  ],
+  "prevention": [
+    "Proper food handling",
+    "Wash fruits and vegetables",
+    "Cook food thoroughly"
+  ]
+},
+
+"Gastroenteritis": {
+  "orthodox": [
+    "Oral rehydration therapy",
+    "Medication for vomiting or diarrhea when needed"
+  ],
+  "herbal": [
+    "Ginger",
+    "Peppermint"
+  ],
+  "prevention": [
+    "Clean water consumption",
+    "Good hygiene"
+  ]
+},
+
+"Peptic Ulcer Disease": {
+  "orthodox": [
+    "Proton pump inhibitors",
+    "Antibiotics for H. pylori infection"
+  ],
+  "herbal": [
+    "Aloe vera",
+    "Licorice root"
+  ],
+  "prevention": [
+    "Avoid excessive NSAID use",
+    "Reduce alcohol consumption"
+  ]
+},
+
+"Gastritis": {
+  "orthodox": [
+    "Acid-reducing medication",
+    "Treatment for H. pylori infection if present"
+  ],
+  "herbal": [
+    "Ginger",
+    "Chamomile tea"
+  ],
+  "prevention": [
+    "Avoid stomach irritants",
+    "Eat balanced meals"
+  ]
+},
+
+"Dysentery": {
+  "orthodox": [
+    "Antibiotics when bacterial infection is confirmed",
+    "Oral rehydration solution"
+  ],
+  "herbal": [
+    "Ginger",
+    "Garlic"
+  ],
+  "prevention": [
+    "Safe drinking water",
+    "Proper sanitation"
+  ]
+}
+,
+"Asthma": {
+  "orthodox": [
+    "Inhaled bronchodilators",
+    "Inhaled corticosteroids when prescribed"
+  ],
+  "herbal": [
+    "Ginger",
+    "Honey"
+  ],
+  "prevention": [
+    "Avoid asthma triggers",
+    "Keep inhalers available if prescribed",
+    "Maintain clean indoor air"
+  ]
+},
+
+"Bronchitis": {
+  "orthodox": [
+    "Cough medication when appropriate",
+    "Bronchodilators for breathing difficulty when prescribed"
+  ],
+  "herbal": [
+    "Ginger tea",
+    "Honey"
+  ],
+  "prevention": [
+    "Avoid smoking",
+    "Avoid air pollutants",
+    "Practice good respiratory hygiene"
+  ]
+},
+
+"Sinusitis": {
+  "orthodox": [
+    "Nasal saline spray",
+    "Pain relievers",
+    "Antibiotics when bacterial infection is confirmed"
+  ],
+  "herbal": [
+    "Steam inhalation",
+    "Ginger"
+  ],
+  "prevention": [
+    "Manage allergies",
+    "Maintain nasal hygiene"
+  ]
+},
+
+"Tonsillitis": {
+  "orthodox": [
+    "Pain relievers",
+    "Antibiotics when caused by bacteria"
+  ],
+  "herbal": [
+    "Honey",
+    "Warm salt water gargle"
+  ],
+  "prevention": [
+    "Wash hands regularly",
+    "Avoid sharing utensils"
+  ]
+},
+
+"Allergic Rhinitis": {
+  "orthodox": [
+    "Antihistamines",
+    "Nasal corticosteroid sprays"
+  ],
+  "herbal": [
+    "Ginger tea",
+    "Honey"
+  ],
+  "prevention": [
+    "Avoid allergens",
+    "Keep surroundings clean"
+  ]
+},
+
+"Ringworm": {
+  "orthodox": [
+    "Antifungal creams",
+    "Oral antifungal medication for severe cases"
+  ],
+  "herbal": [
+    "Tea tree oil",
+    "Aloe vera"
+  ],
+  "prevention": [
+    "Maintain skin hygiene",
+    "Avoid sharing personal items"
+  ]
+},
+
+"Scabies": {
+  "orthodox": [
+    "Permethrin cream",
+    "Anti-itch medication"
+  ],
+  "herbal": [
+    "Neem oil",
+    "Aloe vera"
+  ],
+  "prevention": [
+    "Wash clothing and bedding",
+    "Avoid close contact until treated"
+  ]
+},
+
+"Eczema": {
+  "orthodox": [
+    "Moisturizers",
+    "Topical corticosteroids when prescribed"
+  ],
+  "herbal": [
+    "Aloe vera",
+    "Coconut oil"
+  ],
+  "prevention": [
+    "Avoid skin irritants",
+    "Keep skin moisturized"
+  ]
+},
+
+"Acne": {
+  "orthodox": [
+    "Topical retinoids",
+    "Benzoyl peroxide",
+    "Antibiotics when prescribed"
+  ],
+  "herbal": [
+    "Aloe vera",
+    "Tea tree oil"
+  ],
+  "prevention": [
+    "Maintain facial hygiene",
+    "Avoid excessive oil buildup"
+  ]
+},
+
+"Fungal Skin Infection": {
+  "orthodox": [
+    "Antifungal creams",
+    "Oral antifungal medication when required"
+  ],
+  "herbal": [
+    "Tea tree oil",
+    "Neem"
+  ],
+  "prevention": [
+    "Keep skin dry",
+    "Avoid sharing towels and clothing"
+  ]
+}
+,
+"Diabetes Mellitus": {
+  "orthodox": [
+    "Insulin therapy when required",
+    "Oral diabetes medications as prescribed"
+  ],
+  "herbal": [
+    "Bitter leaf",
+    "Fenugreek"
+  ],
+  "prevention": [
+    "Maintain healthy diet",
+    "Exercise regularly",
+    "Monitor blood sugar levels"
+  ]
+},
+
+"Hypertension": {
+  "orthodox": [
+    "Antihypertensive medications",
+    "Blood pressure monitoring"
+  ],
+  "herbal": [
+    "Hibiscus tea",
+    "Garlic"
+  ],
+  "prevention": [
+    "Reduce salt intake",
+    "Exercise regularly",
+    "Maintain healthy weight"
+  ]
+},
+
+"Anemia": {
+  "orthodox": [
+    "Iron supplements",
+    "Vitamin supplements when needed"
+  ],
+  "herbal": [
+    "Moringa leaves",
+    "Beetroot"
+  ],
+  "prevention": [
+    "Eat iron-rich foods",
+    "Regular health checks"
+  ]
+},
+
+"Heart Disease": {
+  "orthodox": [
+    "Heart medications prescribed by a doctor",
+    "Cholesterol-lowering medications when needed"
+  ],
+  "herbal": [
+    "Garlic",
+    "Hibiscus"
+  ],
+  "prevention": [
+    "Exercise regularly",
+    "Avoid smoking",
+    "Maintain healthy diet"
+  ]
+},
+
+"Kidney Disease": {
+  "orthodox": [
+    "Blood pressure control medication",
+    "Kidney specialist management"
+  ],
+  "herbal": [
+    "Avoid unverified herbal mixtures",
+    "Maintain adequate hydration"
+  ],
+  "prevention": [
+    "Control blood pressure",
+    "Manage diabetes",
+    "Regular kidney screening"
+  ]
+},
+
+"Urinary Tract Infection (UTI)": {
+  "orthodox": [
+    "Antibiotics prescribed by healthcare professionals",
+    "Pain relief medication when needed"
+  ],
+  "herbal": [
+    "Cranberry products",
+    "Adequate fluids"
+  ],
+  "prevention": [
+    "Drink enough water",
+    "Maintain personal hygiene"
+  ]
+},
+
+"Migraine": {
+  "orthodox": [
+    "Pain relief medication",
+    "Migraine-specific medication when prescribed"
+  ],
+  "herbal": [
+    "Ginger",
+    "Peppermint tea"
+  ],
+  "prevention": [
+    "Avoid migraine triggers",
+    "Maintain regular sleep patterns"
+  ]
+},
+
+"Arthritis": {
+  "orthodox": [
+    "Pain relievers",
+    "Anti-inflammatory medications"
+  ],
+  "herbal": [
+    "Turmeric",
+    "Ginger"
+  ],
+  "prevention": [
+    "Maintain healthy weight",
+    "Regular gentle exercise"
+  ]
+},
+
+"Depression": {
+  "orthodox": [
+    "Antidepressant medication when prescribed",
+    "Psychological counselling"
+  ],
+  "herbal": [
+    "Chamomile tea",
+    "Exercise and relaxation practices"
+  ],
+  "prevention": [
+    "Maintain social support",
+    "Seek professional help when needed"
+  ]
+}
+}

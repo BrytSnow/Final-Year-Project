@@ -1,0 +1,35 @@
+.register-page {
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #eef6ff,
+            #f7fbff
+        );
+
+}
+
+
+
+[data-theme="dark"] .register-page {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #111827,
+            #1e293b
+        );
+
+}

@@ -1,0 +1,40 @@
+:root {
+    /* ===== Colors ===== */
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+
+    --success: #16a34a;
+    --warning: #f59e0b;
+    --danger: #dc2626;
+
+    /* ===== Neutral Colors ===== */
+    --white: #ffffff;
+    --black: #111827;
+
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+
+    /* ===== Radius ===== */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+
+    /* ===== Shadows ===== */
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.08);
+    --shadow-md: 0 8px 20px rgba(0,0,0,.12);
+
+    /* ===== Transition ===== */
+    --transition: 0.25s ease;
+
+    /* ===== Layout ===== */
+    --max-width: 1200px;
+
+    /* ===== Font ===== */
+    --font-family: "Inter", "Segoe UI", sans-serif;
+}

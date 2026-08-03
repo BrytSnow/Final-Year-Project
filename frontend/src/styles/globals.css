@@ -1,0 +1,89 @@
+@import "./variables.css";
+@import "./theme.css";
+
+/* Reset */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HTML */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Body */
+
+html,
+body,
+#root {
+
+    width:100%;
+
+    min-height:100vh;
+
+}
+
+
+body {
+
+    font-family: var(--font-family);
+
+    background: var(--background);
+
+    color: var(--text);
+
+    transition:
+        background .3s ease,
+        color .3s ease;
+
+}
+
+/* Root */
+
+#root {
+
+    min-height: 100vh;
+}
+
+/* Links */
+
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+}
+
+/* Lists */
+
+ul {
+
+    list-style: none;
+}
+
+/* Buttons */
+
+button {
+
+    border: none;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    font-family: inherit;
+}
+
+/* Inputs */
+
+input,
+textarea {
+
+    font-family: inherit;
+
+    outline: none;
+}

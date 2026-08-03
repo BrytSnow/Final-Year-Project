@@ -1,0 +1,68 @@
+.layout {
+
+    min-height:100vh;
+
+    background:var(--background);
+
+}
+
+
+/* MAIN AREA */
+
+.layout-main {
+
+    margin-left:260px;
+
+    padding-top:70px;
+
+    min-height:100vh;
+
+    transition:margin-left .3s ease;
+
+}
+
+
+
+
+
+/* SIDEBAR CLOSED */
+
+.layout.sidebar-closed .layout-main {
+
+    margin-left:75px;
+
+}
+
+
+
+
+
+.layout-content {
+
+    min-height:calc(100vh - 70px);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+}
+
+
+
+
+
+.content-wrapper {
+
+    width:100%;
+
+    max-width:1200px;
+
+    display:flex;
+
+    justify-content:center;
+
+}

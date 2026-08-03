@@ -1,0 +1,102 @@
+.login-page{
+
+    min-height:100vh;
+
+    display:grid;
+
+    grid-template-columns:520px 1fr;
+
+    background:var(--background);
+
+}
+
+.login-page__left{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+    background:var(--surface);
+
+}
+
+.login-page__right{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef6ff,
+            #f7fbff
+        );
+
+}
+[data-theme="dark"] .login-page__right{
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1e293b
+        );
+
+}
+
+.login-page__content{
+
+    max-width:500px;
+
+}
+
+.login-page__content h1{
+
+    font-size:52px;
+
+    margin-bottom:20px;
+
+}
+
+.login-page__content p{
+
+    font-size:20px;
+
+    line-height:1.7;
+
+}
+.login-page{
+
+    min-height:100vh;
+
+    display:grid;
+
+    grid-template-columns:1fr 520px;
+
+}
+@media(max-width:900px){
+
+    .login-page{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .auth-illustration{
+
+        display:none;
+
+    }
+
+}

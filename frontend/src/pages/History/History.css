@@ -1,0 +1,97 @@
+.history-page{
+
+    padding:40px;
+
+    min-height:100%;
+
+}
+
+
+
+.history-page h1{
+
+    margin-bottom:30px;
+
+}
+
+
+
+.history-list{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:25px;
+
+}
+
+
+
+.history-card{
+
+    background:var(--surface);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    border:1px solid var(--border);
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.08);
+
+}
+
+
+
+.history-card h2{
+
+    margin-bottom:15px;
+
+}
+
+
+
+.confidence{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.confidence strong{
+
+    margin-left:10px;
+
+    color:#2e8bff;
+
+}
+
+
+
+.history-card p{
+
+    line-height:1.6;
+
+}
+
+
+
+.history-card small{
+
+    color:gray;
+
+}
+
+
+
+.empty-history{
+
+    text-align:center;
+
+    padding:60px;
+
+}
