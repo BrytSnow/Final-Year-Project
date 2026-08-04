@@ -486,6 +486,3 @@ http://127.0.0.1:8000
 Machine Learning Disease Prediction System
 
 The AI Disease Detection and Treatment Recommendation System is now ready to use.
-
-
-This is the kind of README installation section you would expect in a professional GitHub repository. It a
