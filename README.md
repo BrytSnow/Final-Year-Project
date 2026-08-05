@@ -148,62 +148,6 @@ Users can:
 
 ---
 
-# Project Structure
-
-Final-Year-Project
-│
-├── backend
-│ │
-│ ├── app.py
-│ ├── requirements.txt
-│ │
-│ ├── models
-│ │ ├── disease_model.pkl
-│ │ └── vectorizer.pkl
-│ │
-│ ├── ml
-│ │ ├── train_model.py
-│ │ └── predict.py
-│ │
-│ ├── nlp
-│ │ ├── preprocess.py
-│ │ └── symptom_extractor.py
-│ │
-│ ├── recommender
-│ │ └── treatment.py
-│ │
-│ └── datasets
-│ ├── disease_dataset.csv
-│ └── symptoms_dataset.csv
-│
-│
-├── frontend
-│ │
-│ ├── package.json
-│ ├── index.html
-│ │
-│ ├── public
-│ │ └── logo.png
-│ │
-│ └── src
-│ │
-│ ├── components
-│ │
-│ ├── pages
-│ │
-│ ├── context
-│ │
-│ ├── hooks
-│ │
-│ ├── services
-│ │
-│ └── firebase
-│
-│
-└── README.md
-
----
-
 # Requirements
 
 Before running the project, install:
@@ -259,20 +203,6 @@ Backend Configuration
 
 Ensure the required files are available:
 
-backend
-│
-├── app.py
-├── requirements.txt
-│
-├── models
-│   ├── disease_model.pkl
-│   └── vectorizer.pkl
-│
-├── datasets
-│   ├── disease_dataset.csv
-│   └── symptoms_dataset.csv
-│
-└── ...
 
 The trained machine learning model files must be present before running the API.
 
@@ -316,12 +246,6 @@ This installs all required React packages.
 5. Configure Frontend Environment Variables
 
 Create a .env file inside the frontend folder:
-
-frontend
-│
-├── .env
-├── package.json
-└── src
 
 Add Firebase configuration:
 

@@ -48,7 +48,7 @@ export default function Header({
 
 
                         <h1>
-                            AI Disease Detection System
+                            AI Health Assistant
                         </h1>
 
 

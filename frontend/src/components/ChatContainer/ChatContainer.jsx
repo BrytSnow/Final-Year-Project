@@ -54,21 +54,8 @@ export default function ChatContainer(){
                             </h2>
 
                             <p>
-                                Tell me what you're experiencing and
-                                I'll help you understand possible causes,
-                                symptoms, and general health information.
+                                Your AI-powered health companion. Describe your symptoms in your own words or voice, ask health-related questions, and receive intelligent insights, possible conditions, treatment suggestions, and wellness recommendations. Always consult a qualified healthcare professional for medical emergencies or confirmed diagnoses.
                             </p>
-
-
-                            <div className="example-box">
-
-                                Try asking:
-
-                                <strong>
-                                    "I have fever, headache and body pain for three days."
-                                </strong>
-
-                            </div>
 
                         </div>
 
