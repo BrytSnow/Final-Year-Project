@@ -1,6 +1,9 @@
 import {useState} from "react";
 
-import {sendMessage} from "../api/api";
+import {
+    sendMessage,
+    predictSkinImage
+} from "../api/api";
 
 import {useAuth} from "../context/AuthContext";
 import {useConversation} from "../context/ConversationContext";
@@ -46,6 +49,8 @@ export function useChat(){
 
     const [input,setInput]=useState("");
 
+    const [selectedImage,setSelectedImage]=useState(null);
+
     const [loading,setLoading]=useState(false);
 
 
@@ -56,12 +61,16 @@ export function useChat(){
     const handleSend=async()=>{
 
 
-        if(!input.trim() || loading)
+        if(
+            (!input.trim() && !selectedImage)
+            ||
+            loading
+        )
 
-            return;
+        return;
 
 
-
+        const imageToSend = selectedImage;
 
         const userInput=input.trim();
 
@@ -187,6 +196,8 @@ export function useChat(){
 
             setInput("");
 
+            setSelectedImage(null);
+
             setLoading(true);
 
 
@@ -241,34 +252,34 @@ export function useChat(){
                         content:`
 
 
-${message.data?.response || ""}
+                    ${message.data?.response || ""}
 
 
 
-Follow-up questions:
+                    Follow-up questions:
 
-${
-message.data?.questions?.join("\n")
-|| "None"
-}
-
-
+                    ${
+                    message.data?.questions?.join("\n")
+                    || "None"
+                    }
 
 
-Patient context:
 
-${
-JSON.stringify(
 
-message.data?.patient_context || {},
+                    Patient context:
 
-null,
+                    ${
+                    JSON.stringify(
 
-2
+                    message.data?.patient_context || {},
 
-)
+                    null,
 
-}
+                    2
+
+                    )
+
+                    }
 
 
 
@@ -285,11 +296,23 @@ null,
 
 
 
+            let response;
 
 
-            const response =
 
-                await sendMessage(
+            if(imageToSend){
+
+
+                response = await predictSkinImage(
+                    imageToSend
+                );
+
+
+            }
+            else{
+
+
+                response = await sendMessage(
 
                     userInput,
 
@@ -300,10 +323,7 @@ null,
                 );
 
 
-
-
-
-
+            }
 
             // Update shared patient memory
 
@@ -594,21 +614,19 @@ null,
 
         messages:chatMessages,
 
-
         input,
-
 
         setInput,
 
-
         loading,
-
 
         handleSend,
 
+        patientContext,
 
-        patientContext
+        selectedImage,
 
+        setSelectedImage
 
     };
 

@@ -47,3 +47,19 @@ Thumbs.db
 *.safetensors
 *.bin
 *.pkl
+
+# Machine Learning Models
+*.pkl
+*.pk1
+*.h5
+
+# Keep trained skin detection models
+!backend/models/*.keras
+
+# Image datasets/models
+backend/image_detection/
+dermnet/
+*.jpg
+*.jpeg
+*.png
+*.webp

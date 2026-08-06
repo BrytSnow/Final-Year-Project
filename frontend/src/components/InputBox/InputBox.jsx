@@ -1,22 +1,35 @@
 import "./InputBox.css";
-import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
+import {
+    FaMicrophone,
+    FaMicrophoneSlash,
+    FaPaperclip,
+    FaTimes
+} from "react-icons/fa";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
 import { cleanVoiceText } from "../../utils/cleanVoiceText";
 
-export default function InputBox({ value, onChange, onSend, disabled }) {
-  const {
-    transcript,
-    interimTranscript,
-    finalTranscript,
-    listening,
-    browserSupportsSpeechRecognition,
-    resetTranscript
-  } = useSpeechRecognition();
+export default function InputBox({
+    value,
+    onChange,
+    onSend,
+    disabled,
+    selectedImage,
+    setSelectedImage
+    }) {
+    const {
+      transcript,
+      interimTranscript,
+      finalTranscript,
+      listening,
+      browserSupportsSpeechRecognition,
+      resetTranscript
+    } = useSpeechRecognition();
 
   const silenceTimer = useRef(null);
   const textareaRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const [seconds, setSeconds] = useState(0);
   const [processingVoice, setProcessingVoice] = useState(false);
@@ -114,7 +127,13 @@ export default function InputBox({ value, onChange, onSend, disabled }) {
   }, []);
 
   const canSend = () => {
-    return value.trim().length > 0;
+
+    return (
+        value.trim().length > 0
+        ||
+        selectedImage
+    );
+
   };
 
   const handleKeyDown = (event) => {
@@ -173,6 +192,34 @@ export default function InputBox({ value, onChange, onSend, disabled }) {
     );
   };
 
+    const handleImageSelect = (event)=>{
+
+
+      const file = event.target.files[0];
+
+
+      if(!file)
+          return;
+
+
+
+      if(!file.type.startsWith("image/")){
+
+          toast.error(
+              "Please select an image file"
+          );
+
+          return;
+
+      }
+
+
+
+      setSelectedImage(file);
+
+
+  };
+
   return (
     <div className="input-box">
       {(listening || processingVoice) && (
@@ -198,6 +245,37 @@ export default function InputBox({ value, onChange, onSend, disabled }) {
         </div>
       )}
 
+      {
+        selectedImage && (
+
+        <div className="image-preview">
+
+
+        <img
+          src={
+          URL.createObjectURL(selectedImage)
+          }
+          alt="preview"
+        />
+
+
+
+        <button
+          onClick={()=>{
+              setSelectedImage(null);
+          }}
+        >
+
+        <FaTimes/>
+
+        </button>
+
+
+        </div>
+
+        )
+      }
+
       <textarea
         ref={textareaRef}
         value={value}
@@ -206,6 +284,27 @@ export default function InputBox({ value, onChange, onSend, disabled }) {
         placeholder="Describe your symptoms..."
         disabled={disabled}
         rows="1"
+      />
+
+      <button
+        className="upload-btn"
+        onClick={()=>{
+            fileInputRef.current.click();
+        }}
+        disabled={disabled}
+        >
+
+        <FaPaperclip/>
+
+        </button>
+
+
+        <input
+        type="file"
+        accept="image/*"
+        hidden
+        ref={fileInputRef}
+        onChange={handleImageSelect}
       />
 
       <button

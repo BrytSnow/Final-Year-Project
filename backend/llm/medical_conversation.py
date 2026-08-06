@@ -6,7 +6,8 @@ def handle_medical_conversation(
     history,
     symptoms,
     diseases,
-    patient_context=None
+    patient_context=None,
+    image_analysis=None
 ):
 
     previous_conversation = ""
@@ -65,6 +66,61 @@ Detected symptoms:
 Possible diseases:
 
 {diseases}
+
+
+
+Detected image analysis:
+
+{patient_context.get("image_analysis", {})}
+
+If image analysis exists, prioritize questions that help verify the visual finding.
+
+For example:
+- location
+- skin changes
+- itching/pain
+- progression
+- previous treatments
+
+
+===========================
+IMAGE ANALYSIS
+===========================
+
+If the patient uploaded a skin image, the AI image model produced the following result:
+
+{image_analysis}
+
+Use this information ONLY as supporting evidence.
+
+Do NOT assume the image prediction is always correct.
+
+Combine image findings with:
+
+- reported symptoms
+- duration
+- severity
+- conversation history
+
+If the uploaded image does not appear medically useful or is unrelated to skin disease, ignore the image result and continue using the patient's symptoms.
+
+Never state that the image confirms a diagnosis.
+
+Always say:
+
+"The uploaded image appears most consistent with..."
+
+or
+
+"The uploaded image may suggest..."
+
+Never say:
+
+"You have..."
+
+or
+
+"This confirms..."
 
 
 
@@ -198,7 +254,22 @@ QUESTION STRATEGY
 ===========================
 
 
-First question round should collect:
+First question round should collect information based on the consultation type.
+
+
+For skin image analysis:
+
+Collect:
+
+- location of the skin problem
+- appearance changes (redness, scaling, swelling, spots, rings, wounds)
+- symptoms (itching, pain, burning)
+- duration
+
+
+For general symptoms:
+
+Collect:
 
 - symptom duration
 - severity
@@ -238,6 +309,28 @@ Avoid questions about family history, travel, or lifestyle unless they are clear
 
 
 
+===========================
+IMAGE ANALYSIS RULES
+===========================
+
+
+If image analysis information exists:
+
+
+Use it only as supporting evidence.
+
+
+Never confirm a disease from an image alone.
+
+
+Use phrases like:
+
+- "The image appears consistent with..."
+- "The AI model detected patterns related to..."
+- "This may suggest..."
+
+
+Always combine image findings with symptoms and patient answers.
 
 
 
@@ -317,6 +410,8 @@ Format:
 {{
     "response":"medical response here",
 
+    "image_used":true,
+
     "requires_more_info":true,
 
     "questions":[
@@ -331,6 +426,9 @@ Format:
         "medical_history":"",
         "trigger":"",
         "other_notes":"",
+        "image_analysis":{{
+            "category":""
+        }},
         "question_round":0
     }}
 }}
@@ -367,24 +465,26 @@ Do not include markdown.
 
     return {
 
-        "response": result.get(
-            "response",
-            "I need more information about your condition."
-        ),
+    "response": result.get(
+        "response",
+        "I need more information about your condition."
+    ),
 
+    "image_used": result.get(
+        "image_used",
+        False
+    ),
 
-        "requires_more_info": result.get(
-            "requires_more_info",
-            False
-        ),
+    "requires_more_info": result.get(
+        "requires_more_info",
+        False
+    ),
 
+    "questions": result.get(
+        "questions",
+        []
+    ),
 
-        "questions": result.get(
-            "questions",
-            []
-        ),
-
-
-        "patient_context": updated_context
+    "patient_context": updated_context
 
     }

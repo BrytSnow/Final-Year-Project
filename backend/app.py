@@ -1,6 +1,7 @@
+from image_detection.image_predict import predict_skin
 from typing import Dict, List
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -34,6 +35,7 @@ app.add_middleware(
 
     allow_headers=["*"]
 )
+
 
 
 
@@ -101,13 +103,13 @@ class ChatResponse(BaseModel):
 
 
 
+
 @app.get("/")
 def health_check():
 
     return {
         "status": "API is running"
     }
-
 
 
 
@@ -176,6 +178,7 @@ def process_message(
 
 
 
+
     # --------------------------
     # Symptom consultation
     # --------------------------
@@ -214,6 +217,7 @@ def process_message(
 
         return {
 
+
             "response":
                 result.get(
                     "response",
@@ -221,8 +225,10 @@ def process_message(
                 ),
 
 
+
             "symptoms_detected":
                 symptoms,
+
 
 
             "possible_diseases":
@@ -232,11 +238,13 @@ def process_message(
                 ],
 
 
+
             "assessment":
                 result.get(
                     "assessment",
                     {}
                 ),
+
 
 
             "requires_more_info":
@@ -246,11 +254,13 @@ def process_message(
                 ),
 
 
+
             "questions":
                 result.get(
                     "questions",
                     []
                 ),
+
 
 
             "patient_context":
@@ -260,6 +270,7 @@ def process_message(
                 )
 
         }
+
 
 
 
@@ -280,6 +291,7 @@ def process_message(
             top_k=5
 
         )
+
 
 
 
@@ -320,6 +332,7 @@ def process_message(
 
 
 
+
     return {
 
         "response": response_text,
@@ -347,6 +360,9 @@ def process_message(
         "patient_context": patient_context
 
     }
+
+
+
 
 
 
@@ -388,6 +404,93 @@ def chat(
 
         traceback.print_exc()
 
+
+
+        raise HTTPException(
+
+            status_code=500,
+
+            detail=str(e)
+
+        )
+
+
+@app.post("/predict-image")
+async def predict_image(
+    file: UploadFile = File(...)
+):
+
+    try:
+
+        image = await file.read()
+
+
+        prediction = predict_skin(
+            image
+        )
+
+
+        image_context = {
+
+            "image_analysis": {
+
+                "category":
+                prediction.get(
+                    "category",
+                    "Unknown"
+                )
+
+            }
+
+        }
+
+
+        result = handle_medical_conversation(
+
+            message=
+            "The patient uploaded a skin image.",
+
+            history=[],
+
+            symptoms=[],
+
+            diseases=[],
+
+            patient_context=image_context
+
+        )
+
+
+        return {
+
+            "type":
+            "skin_image",
+
+
+            "response":
+            result.get(
+                "response",
+                ""
+            ),
+
+
+            "patient_context":
+            result.get(
+                "patient_context",
+                image_context
+            ),
+
+
+            "questions":
+            result.get(
+                "questions",
+                []
+            )
+
+        }
+
+
+    except Exception as e:
 
 
         raise HTTPException(

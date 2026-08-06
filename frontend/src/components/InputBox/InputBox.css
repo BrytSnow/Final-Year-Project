@@ -397,3 +397,45 @@
     }
 
 }
+.upload-btn {
+    background: transparent;
+    border: none;
+    color: #4b5563;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.upload-btn:hover {
+    color: #2563eb;
+}
+
+
+.image-preview {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+
+.image-preview img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+
+.image-preview button {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    border-radius: 50%;
+    border: none;
+    background: red;
+    color: white;
+    cursor: pointer;
+}

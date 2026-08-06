@@ -17,7 +17,9 @@ export default function ChatContainer(){
         loading,
         input,
         setInput,
-        handleSend
+        handleSend,
+        selectedImage,
+        setSelectedImage
     } = useChat();
 
 
@@ -77,7 +79,27 @@ export default function ChatContainer(){
 
                                 ?
 
-                                message.text
+                                <div>
+
+                                    {
+                                    message.image && (
+
+                                    <img
+                                    src={message.image}
+                                    className="chat-image"
+                                    />
+
+                                    )
+
+                                    }
+
+
+                                    <p>
+                                    {message.text}
+                                    </p>
+
+
+                                </div>
 
                                 :
 
@@ -113,6 +135,8 @@ export default function ChatContainer(){
                 onChange={setInput}
                 onSend={handleSend}
                 disabled={loading}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
             />
 
 
